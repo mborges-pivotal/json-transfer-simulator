@@ -9,51 +9,59 @@
 </head>
 
 <body>
-<h1>Test to return different JSON payload sizes</h1>
-<ul>
-	<li><a href="/generate?authors=10">/generate?authors=10</a></li>
-	<li><a href="/generate?authors=100">/generate?authors=100</a></li>
-	<li><a href="/generate?authors=1000">/generate?authors=1000</a></li>
-	<li><a href="/generate?authors=10000">/generate?authors=10000</a></li>
-</ul>
+	<h1>Test to return different JSON payload sizes</h1>
+	<ul>
+		<li><a href="/generate?authors=10">/generate?authors=10</a></li>
+		<li><a href="/generate?authors=100">/generate?authors=100</a></li>
+		<li><a href="/generate?authors=1000">/generate?authors=1000</a></li>
+		<li><a href="/generate?authors=10000">/generate?authors=10000</a></li>
+	</ul>
+	
+	<form id="formoid" action="/generate" title="" method="post">
+		<div>
+			<label class="title">Number of Authors</label> <input type="text"
+				id="authors" name="authors"> <input type="submit"
+				id="submitButton" name="submitButton" value="Submit">
+		</div>
+	</form>
+	
+	<br>
 
-   <form id="formoid" action="/generate" title=""
-		method="post">
-        <div>
-            <label class="title">Number of Authors</label>
-            <input type="text" id="authors" name="authors">
-            <input type="submit" id="submitButton" name="submitButton"
-				value="Submit">
-        </div>
- </form>
-  
-  <script type='text/javascript'>
-	/* attach a submit handler to the form */
+	<div>
+		<a href="/manage">Spring Boot Actuators</a>
+	</div>
 
-	var ajaxTime= new Date().getTime();
+	<script type='text/javascript'>
+		/* attach a submit handler to the form */
 
-	$("#formoid").submit(function(event) {
+		var ajaxTime = new Date().getTime();
 
-		/* stop form from submitting normally */
-		event.preventDefault();
+		$("#formoid")
+				.submit(
+						function(event) {
 
-		/* get the action attribute from the <form action=""> element */
-		var $form = $(this), url = $form.attr('action');
+							/* stop form from submitting normally */
+							event.preventDefault();
 
-		/* Send the data using post with element id name and name2*/
-		var posting = $.post(url, {
-			authors : $('#authors').val(),
-		});
+							/* get the action attribute from the <form action=""> element */
+							var $form = $(this), url = $form.attr('action');
 
-		/* Alerts the results */
-		posting.done(function(data) {
-			var totalTime = new Date().getTime()-ajaxTime;
-			var totalBytes = data.length
-			alert(`success: ${totalBytes} bytes received in ${totalTime} ms`);
-			console.log(data)
-		});
-	});
-</script>
+							/* Send the data using post with element id name and name2*/
+							var posting = $.post(url, {
+								authors : $('#authors').val(),
+							});
+
+							/* Alerts the results */
+							posting
+									.done(function(data) {
+										var totalTime = new Date().getTime()
+												- ajaxTime;
+										var totalBytes = data.length
+										alert(`success: ${totalBytes} bytes received in ${totalTime} ms`);
+										console.log(data)
+									});
+						});
+	</script>
 
 
 </body>
