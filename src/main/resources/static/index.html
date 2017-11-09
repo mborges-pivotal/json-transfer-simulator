@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<head>
+<script src="/scripts/jquery-3.2.1.min.js"></script>
+</head>
+</head>
+
+<body>
+<h1>Test to return different JSON payload sizes</h1>
+<ul>
+	<li><a href="/generate?authors=10">/generate?authors=10</a></li>
+	<li><a href="/generate?authors=100">/generate?authors=100</a></li>
+	<li><a href="/generate?authors=1000">/generate?authors=1000</a></li>
+	<li><a href="/generate?authors=10000">/generate?authors=10000</a></li>
+</ul>
+
+   <form id="formoid" action="/generate" title=""
+		method="post">
+        <div>
+            <label class="title">Number of Authors</label>
+            <input type="text" id="authors" name="authors">
+            <input type="submit" id="submitButton" name="submitButton"
+				value="Submit">
+        </div>
+ </form>
+  
+  <script type='text/javascript'>
+	/* attach a submit handler to the form */
+
+	var ajaxTime= new Date().getTime();
+
+	$("#formoid").submit(function(event) {
+
+		/* stop form from submitting normally */
+		event.preventDefault();
+
+		/* get the action attribute from the <form action=""> element */
+		var $form = $(this), url = $form.attr('action');
+
+		/* Send the data using post with element id name and name2*/
+		var posting = $.post(url, {
+			authors : $('#authors').val(),
+		});
+
+		/* Alerts the results */
+		posting.done(function(data) {
+			var totalTime = new Date().getTime()-ajaxTime;
+			var totalBytes = data.length
+			alert(`success: ${totalBytes} bytes received in ${totalTime} ms`);
+			console.log(data)
+		});
+	});
+</script>
+
+
+</body>
+</html>

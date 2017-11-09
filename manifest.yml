@@ -1,0 +1,6 @@
+applications:
+- name: test
+  instances: 1
+  memory: 1024M
+  random-route: true
+  path: target/json-transfer-simulator-0.0.1-SNAPSHOT.jar
